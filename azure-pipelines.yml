@@ -17,5 +17,5 @@ steps:
       # Write your commands here
       
       echo 'Hello world'
-      mkdir C:/test
+      mkdir C:\test
       

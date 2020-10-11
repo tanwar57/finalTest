@@ -2,12 +2,17 @@
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
+parameters:
+  - name: tags
+    displayName: Tagging the repositories
+    type: string
+    default:
 
 trigger:
 - master
 
 stages:
-- stage: gettingRepository
+- stage: gettingRepositories
   jobs:
     - job: Getting_script_repository
       pool: testRelease
@@ -20,6 +25,22 @@ stages:
               git clone https://github.com/tanwar57/releaseRepo.git
               .\releaseRepo\azure\reject.ps1
               .\releaseRepo\getAllRepositories.ps1
+
+- stage: taggingRepositories
+  dependsOn: gettingRepositories
+  jobs:
+    - job: Tagging_all_repositories
+      pool: testRelease
+      steps:
+        - task: PowerShell@2
+          inputs:
+            targetType: 'inline'
+            script: |
+              Write-Host "tagging the repositories"
+              cd C:\Scripts\newDir\branchingtechnics
+              git checkout release/v1.0
+              git tag -a ${{ parameters.tags }} -m "release candidate of the ${{ parameters.tags }}"
+              git push -u origin --tags
 
 
 

@@ -19,12 +19,7 @@ steps:
    pwd
    echo $PATH
    date
-   ls -talr
-   #git clone ssh://git@git.nibejpi.com:7999/cloudteam/jpi-cloud-devicemanagement.git
-   ls -tarl
-   ls jpi-cloud-devicemanagement
    touch hello
    echo "ravi" >> hello
-  displayName: 'Bash Script'
-  enabled: false
+
       

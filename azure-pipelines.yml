@@ -19,7 +19,10 @@ stages:
               # Write your PowerShell commands here.
               
               Write-Host "Hello World"
-              cd C:\Scripts\newDir
+              cd -Path C:\Scripts\
+              git clone https://github.com/tanwar57/releaseRepo.git
+              .\releaseRepo\azure\reject.ps1
+
 
 
  

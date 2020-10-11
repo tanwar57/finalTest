@@ -6,17 +6,32 @@
 trigger:
 - master
 
-pool: testRelease
-  # vmImage: 'ubuntu-latest'
+stages:
+- stage: Getting repositiory
+  jobs:
+    - job: 
+      pool: testRelease
+      steps:
+        - task: PowerShell@2
+          inputs:
+            targetType: 'inline'
+            script: |
+              # Write your PowerShell commands here.
+              
+              Write-Host "Hello World"
 
-steps:
 
-- task: PowerShell@2
-  inputs:
-    targetType: 'inline'
-    script: |
-      # Write your PowerShell commands here.
+ 
+
+
+# steps:
+
+# - task: PowerShell@2
+#   inputs:
+#     targetType: 'inline'
+#     script: |
+#       # Write your PowerShell commands here.
       
-      Write-Host "Hello World"
-      New-Item -ItemType directory -Path C:\Scripts\newDir
+#       Write-Host "Hello World"
+#       New-Item -ItemType directory -Path C:\Scripts\newDir
       

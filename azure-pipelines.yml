@@ -7,7 +7,7 @@ trigger:
 - master
 
 stages:
-- stage: Getting _script_repositiory
+- stage: gettingRepository
   jobs:
     - job: Getting_script_repository
       pool: testRelease

@@ -30,30 +30,39 @@ stages:
   dependsOn: gettingRepositories
   condition: succeeded('gettingRepositories')
   jobs:
-    - job: Tagging_all_repositories
+    - deployment: deploy
       pool: testRelease
-      steps:
-        - task: PowerShell@2
-          inputs:
-            targetType: 'inline'
-            script: |
-              Write-Host "tagging the repositories"
-              cd C:\Scripts\newDir\branchingtechnics
-              git checkout release/v1.0
-              git tag -a ${{ parameters.tags }} -m "release candidate of the ${{ parameters.tags }}"
-              git push -u origin --tags
+      environment: 'approve'
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+            - task: PowerShell@2
+              inputs:
+                targetType: 'inline'
+                script: |
+                  Write-Host "tagging the repositories"
+                  cd C:\Scripts\newDir\branchingtechnics
+                  git checkout release/v1.0
+                  git tag -a ${{ parameters.tags }} -m "release candidate of the ${{ parameters.tags }}"
+                  git push -u origin --tags
 
 - stage: approveRelease
-  dependsOn: []
-  jobs:
-    - job: approving_releases_for_dev_stage_prod
-      pool: testRelease
-      steps:
-      - task: PowerShell@2
-        inputs:
-          targetType: 'inline'
-          script: |
-              Write-Host "Approved for stage"
+  dependsOn: taggingRepositories
+  condition: succeeded('taggingRepositories')
+  jobs: 
+  - deployment: deploy
+    pool: testRelease
+    environment: 'approve'
+    strategy:
+     runOnce:
+        deploy:
+          steps:
+          - task: PowerShell@2
+            inputs:
+              targetType: 'inline'
+              script: |       
+                Write-Host "Approved release for stage"
   
 
 

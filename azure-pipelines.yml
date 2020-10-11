@@ -43,6 +43,23 @@ stages:
                   git tag -a ${{ parameters.tags }} -m "release candidate of the ${{ parameters.tags }}"
                   git push -u origin --tags
 
+- stage: approveRelease
+  dependsOn: taggingRepositories
+  condition: succeeded('taggingRepositories')
+  jobs: 
+  - deployment: deploy
+    pool: testRelease
+    environment: 'approve'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - task: PowerShell@2
+              inputs:
+                targetType: 'inline'
+                script: | 
+                  Write-Host "Approved release for stage"
+
 
 
 

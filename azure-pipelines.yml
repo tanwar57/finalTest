@@ -31,7 +31,7 @@ stages:
   condition: succeeded('gettingRepositories')
   jobs:
     - job: taggingRepositories
-      pool:
+      pool: testPool
       steps:
         - task: PowerShell@2
           inputs:

@@ -10,12 +10,21 @@ pool: testRelease
   # vmImage: 'ubuntu-latest'
 
 steps:
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: |
-      # Write your commands here
-      
-      echo 'Hello world'
-      mkdir C:\test
+- bash: |
+   # Write your commands here
+   
+   echo 'Hello world'
+   uptime
+   whoami
+   pwd
+   echo $PATH
+   date
+   ls -talr
+   #git clone ssh://git@git.nibejpi.com:7999/cloudteam/jpi-cloud-devicemanagement.git
+   ls -tarl
+   ls jpi-cloud-devicemanagement
+   touch hello
+   echo "ravi" >> hello
+  displayName: 'Bash Script'
+  enabled: false
       

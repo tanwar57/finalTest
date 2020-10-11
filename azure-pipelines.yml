@@ -7,9 +7,9 @@ trigger:
 - master
 
 stages:
-- stage: Getting repositiory
+- stage: Getting script repositiory
   jobs:
-    - job: 
+    - job: Getting_script_repository
       pool: testRelease
       steps:
         - task: PowerShell@2

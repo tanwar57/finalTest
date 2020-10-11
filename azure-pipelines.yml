@@ -19,6 +19,7 @@ stages:
               # Write your PowerShell commands here.
               
               Write-Host "Hello World"
+              cd C:\Scripts\newDir
 
 
  
